@@ -96,10 +96,20 @@ def get_all_translations(rna_sequence, genetic_code):
         frame = frame.upper()
         trans = translate_sequence(frame, genetic_code)
         pep = object.findall(translate_sequence.var)
+        #print(pep)
         str_pep = ''.join(pep)
         if len(str_pep) >0:
             pep_frames.append(str_pep)
     return(pep_frames)
+
+# I would recommend using print statements throughout your loop so you can see what it is assigning to each variable.
+# I am inputting a few print statements into the code above (but commenting out), so you can see what I mean. 
+# If you uncomment the print(pep) statement you will see that the object.findall() is only finding all start codons and that pep object is only ever empty or has an M. 
+# You are definitely on the right track (although there is also a way to do it without re), and we will cover re more in a near future assignment.
+# Given that with the print(pep) you see that it is only pulling M there may be an issue with your re pattern following that portion. 
+# If you look at the docs for re in python and scroll down, when you use \W (capitalized) you pull a character which is not a word character.
+# Try using \w (lowercase) as this will pull word characters, including alphanumerical characters. 
+
 
 def get_reverse(sequence):
     """Reverse orientation of `sequence`.
@@ -205,6 +215,9 @@ def get_longest_peptide(rna_sequence, genetic_code):
     else:
         return(long)
 
+# You are so close on this one too! This is really just a syntax issue and I don't have a great answer why it is finicky about this syntax but I will look into it more.
+# If you look at the error message here now, the issue is either an unexpected keyword argument with max(), or non-keyword arg after keyword arg.
+# Essentially it is getting messed up by the default=0, and if you take this out it will function, however you will then have to use some sort of conditional (i.e. your if statement) to only run max() if length of tran>0
 
 
 if __name__ == '__main__':
